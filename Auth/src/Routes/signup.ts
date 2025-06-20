@@ -1,5 +1,6 @@
 import express, {Request, Response} from 'express';
 import { body, validationResult } from 'express-validator';
+import  jwt  from 'jsonwebtoken';
 import { User } from '../Models/user';
 import { RequestValidationError } from '../errors/request-validation-error';
 import { DatabaseConnectionError } from '../errors/database-connection-error';
@@ -28,6 +29,16 @@ router.post('/api/users/signup',[body('email').isEmail()
     await user.save().catch((err) => {
         console.error('Error saving user:', err);
     });
+
+
+    const userJwt = jwt.sign({
+        id: user.id,
+        email: user.email
+    }, 'asdf');
+    
+
+    req.session = {jwt: userJwt};
+
     res.status(201).send(user);
 
 });
