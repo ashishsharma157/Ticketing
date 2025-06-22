@@ -7,7 +7,7 @@ import cookieSession from "cookie-session";
 import { currentUserRouter } from './Routes/current-user';
 import { signinRouter } from './Routes/signin';
 import { signupRouter } from './Routes/signup'; 
-import { singoutRouter } from './Routes/signout';
+import { signoutRouter } from './Routes/signout';
 import { errorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found';
 const app = express();
@@ -21,12 +21,15 @@ app.use(cookieSession({
 app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signupRouter);  
-app.use(singoutRouter);
+app.use(signoutRouter);
 app.all('*', async (req, res)=>{
   throw new NotFoundError();
 })
 app.use(errorHandler);
 const start = async () => {
+  if (!process.env.JWT_KEY) {
+    throw new Error('JWT_KEY must be defined');
+  }
   try{
   await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
   console.log("Connected to MongoDB");
