@@ -27,11 +27,11 @@ async (req: Request, res: Response) => {
         throw new BadRequestError('Invalid Credentials');
     }
 
-       const user = User.build({
-            email, password});
-        await user.save().catch((err) => {
-            console.error('Error saving user:', err);
-        });
+    //    const user = User.build({
+    //         email, password});
+    //     await user.save().catch((err) => {
+    //         console.error('Error saving user:', err);
+    //     });
     
     
         const userJwt = jwt.sign({
