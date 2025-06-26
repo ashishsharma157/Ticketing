@@ -14,6 +14,14 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: ashishsharma157/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .
   local:
     push: false
       
