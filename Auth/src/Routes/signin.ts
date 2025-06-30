@@ -2,8 +2,8 @@ import express, {Request, Response} from 'express';
 import { body } from 'express-validator';
 
 import {User} from '../Models/user';
-import { validateRequest } from '../middlewares/validate-request';
-import { BadRequestError } from '../errors/bad-request-error';
+import { validateRequest, BadRequestError } from '@minttickets/common';
+
 import { Password } from '../Services/password';
 import  jwt  from 'jsonwebtoken';
 

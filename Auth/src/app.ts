@@ -8,8 +8,10 @@ import { currentUserRouter } from './Routes/current-user';
 import { signinRouter } from './Routes/signin';
 import { signupRouter } from './Routes/signup'; 
 import { signoutRouter } from './Routes/signout';
-import { errorHandler } from './middlewares/error-handler';
-import { NotFoundError } from './errors/not-found';
+import { errorHandler, NotFoundError } from '@minttickets/common';
+// If the error persists, you can use the following workaround:
+// const errorHandler: any = require('@minttickets/common').errorHandler;
+
 const app = express();
 app.set('trust proxy', true); // trust first proxy
 app.use(json());
