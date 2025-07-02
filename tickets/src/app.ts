@@ -4,6 +4,7 @@ import { json} from 'body-parser';
 import cookieSession from "cookie-session";
 
 import { createTicketRouter } from './routes/new';
+import { showTicketRouter } from './routes/show';
 import { errorHandler, NotFoundError, currentUser } from '@minttickets/common';
 // If the error persists, you can use the following workaround:
 // const errorHandler: any = require('@minttickets/common').errorHandler;
@@ -17,6 +18,7 @@ app.use(cookieSession({
 }));
 app.use(currentUser);
 app.use(createTicketRouter);
+app.use(showTicketRouter);
 app.all('*', async (req, res)=>{
   throw new NotFoundError();
 })
