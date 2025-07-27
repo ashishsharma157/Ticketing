@@ -13,7 +13,9 @@ stan.on('connect', ()=> {
         process.exit();
     });
     const options = stan.subscriptionOptions();
-    options.setManualAckMode(true);
+    options.setManualAckMode(true)
+    .setDeliverAllAvailable()
+    .setDurableName('order-services'); // Start from the beginning of the stream;
     const subscription = stan.subscribe('ticket:created', 'listener-queue-group', options);
     subscription.on('message', (msg) => {
         console.log(`Message received: ${msg.getSequence()}, ${msg.getData()}`);

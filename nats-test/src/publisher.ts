@@ -1,6 +1,7 @@
 import nats from 'node-nats-streaming';
 
 console.clear();
+console.log('Publisher starting...');
 const stan=nats.connect('ticketing', 'abc', {
     url: 'http://localhost:4222',
 });
