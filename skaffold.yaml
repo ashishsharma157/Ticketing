@@ -6,7 +6,7 @@ deploy:
       - ./Infra/k8s/*
 build:
   artifacts:
-    - image: ashish/auth
+    - image: ashishsharma157/auth
       context: auth
       docker:
         dockerfile: Dockerfile
