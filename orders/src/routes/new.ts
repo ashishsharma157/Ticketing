@@ -4,7 +4,10 @@ import { requireAuth, validateRequest, NotFoundError, OrderStatus, BadRequestErr
 import { body } from 'express-validator';
 import { Order } from '../models/order';
 import { Ticket } from '../models/ticket';
+
 const router = express.Router();
+
+const EXPIRATION_WINDOW_SECONDS = 15 * 60;
 router.post('/api/orders', requireAuth,[
     body('ticketId')
     .not()
@@ -19,23 +22,33 @@ router.post('/api/orders', requireAuth,[
         throw new NotFoundError();
     }
 
-    const exitingOrder = await Order.findOne(
-    { 
-        ticket: ticket, 
-        status: { $in: 
-            [
-                OrderStatus.Created, OrderStatus.AwaitingPayment, OrderStatus.Complete
-            ] 
-        }
-    });
+    // const exitingOrder = await Order.findOne(
+    // { 
+    //     ticket: ticket, 
+    //     status: { $in: 
+    //         [
+    //             OrderStatus.Created, OrderStatus.AwaitingPayment, OrderStatus.Complete
+    //         ] 
+    //     }
+    // });
 
-    if(exitingOrder){
+    if(await ticket.isReserved()){
         throw new BadRequestError('Ticket is already reserved');
     }
 
-    
+    const expiration = new Date();
+    expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS);
 
-  res.send({});
+    const order = Order.build({
+        userId: req.currentUser!.id,
+        status: OrderStatus.Created,
+        expiresAt: expiration,
+        ticket
+    });
+
+    await order.save();
+
+  res.status(201).send(order);
 });
 
 export { router as newOrderRouter };
