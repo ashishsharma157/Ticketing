@@ -30,6 +30,14 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: ashishsharma157/orders
+      context: orders
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
   local:
     push: false
       
