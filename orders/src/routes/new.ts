@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
-import { requireAuth, validateRequest, NotFoundError, OrderStatus, BadRequestError } from '@minttickets/common';
+import { requireAuth, validateRequest, NotFoundError, BadRequestError } from '@minttickets/common';
 import { body } from 'express-validator';
-import { Order } from '../models/order';
+import { Order, OrderStatus } from '../models/order';
 import { Ticket } from '../models/ticket';
 
 const router = express.Router();
