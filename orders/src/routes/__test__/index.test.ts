@@ -6,19 +6,19 @@ import mongoose from "mongoose";
 
 it("fetches orders for a particular user", async () => {
     const ticketOne = Ticket.build({
-        //id: new mongoose.Types.ObjectId().toHexString(),
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: "concert",
         price: 20,
     });
     await ticketOne.save();
     const ticketTwo = Ticket.build({
-        //id: new mongoose.Types.ObjectId().toHexString(),
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: "concert2", 
         price: 30,
     });
     await ticketTwo.save();
     const ticketThree = Ticket.build({
-        //id: new mongoose.Types.ObjectId().toHexString(),
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: "concert3",
         price: 40,
     });
