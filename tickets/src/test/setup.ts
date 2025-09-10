@@ -21,6 +21,7 @@ beforeAll(async () => {
         useUnifiedTopology: true
     } as mongoose.ConnectOptions);
     });
+    
 beforeEach(async () => {
     jest.clearAllMocks();
     const db = mongoose.connection.db;
@@ -32,6 +33,7 @@ beforeEach(async () => {
         await collection.deleteMany({});
     }
 });
+
 afterAll(async () => {
     await mongo.stop();
     await mongoose.connection.close();

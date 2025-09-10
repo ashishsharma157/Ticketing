@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
-import { requireAuth, validateRequest, NotFoundError, NotAuthorizedError } from '@minttickets/common';
+import { requireAuth, validateRequest, NotFoundError, NotAuthorizedError, BadRequestError } from '@minttickets/common';
 import { Ticket } from '../models/ticket';
 import { TicketUpdatedPublisher } from '../events/publisher/ticket-updated-publisher';
 import { natsWrapper } from '../nats-wrapper';
@@ -21,10 +21,15 @@ router.put('/api/tickets/:id', requireAuth, [
     if (!ticket) {
         throw new NotFoundError();
     }
+    console.log(ticket.orderId);
+    if (ticket.orderId) {
+        return new BadRequestError('Cannot edit a reserved ticket');
+    }
 
     if (ticket.userId !== req.currentUser!.id) {
         throw new NotAuthorizedError();
     }
+
 
     ticket.set({ title, price });
     await ticket.save();
