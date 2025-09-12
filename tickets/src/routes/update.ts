@@ -21,9 +21,9 @@ router.put('/api/tickets/:id', requireAuth, [
     if (!ticket) {
         throw new NotFoundError();
     }
-    console.log(ticket.orderId);
+
     if (ticket.orderId) {
-        return new BadRequestError('Cannot edit a reserved ticket');
+        throw new BadRequestError('Cannot edit a reserved ticket');
     }
 
     if (ticket.userId !== req.currentUser!.id) {
@@ -40,6 +40,7 @@ router.put('/api/tickets/:id', requireAuth, [
         userId: ticket.userId,
         version: ticket.version
     });
+    
     res.send(ticket);
 });
 export { router as updateTicketRouter };

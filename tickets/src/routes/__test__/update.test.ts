@@ -121,8 +121,6 @@ it('rejects updates if the ticket is reserved', async () => {
     ticket!.set({ orderId: new mongoose.Types.ObjectId().toHexString() });
     await ticket!.save(); 
 
-    console.log(ticket);
-    console.log(response.body);
     await request(app)
     .put(`/api/tickets/${response.body.id}`)
     .set('Cookie', cookie)
@@ -131,4 +129,4 @@ it('rejects updates if the ticket is reserved', async () => {
         price: 30
     })
     .expect(400);
-}, 10000);
+});
