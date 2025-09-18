@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 
 declare global {
     // eslint-disable-next-line no-var
-    var signin: () => string[];
+    var signin: (id?: String) => string[];
 }
 
 let mongo: any;
@@ -40,9 +40,9 @@ afterAll(async () => {
 });
 
 
-global.signin = () => {
+global.signin = (id?: String) => {
     const payload = {
-        id: new mongoose.Types.ObjectId().toHexString(),
+        id: id || new mongoose.Types.ObjectId().toHexString(),
         email: 'test@test.com'
     };
     const token=jwt.sign(payload, process.env.JWT_KEY!);
