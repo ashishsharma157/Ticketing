@@ -7,7 +7,9 @@ export default ({url, method, body, onSuccess}) => {
     const doRequest = async (props = {}) => {
         try {
             setErrors([]); // Reset errors on new request
-            const response = await axios[method](url, body);
+            const response = await axios[method](url, 
+                {...body, ...props} 
+            );
             if(onSuccess) {
                 onSuccess(response.data);
             }
