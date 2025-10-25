@@ -18,6 +18,8 @@ it('implements optimistic concurrency control', async () => {
     firstInstance!.set({ price: 10 });
     secondInstance!.set({ price: 15 });
 
+
+    
     // Save the first fetched ticket
     await firstInstance!.save();
     // Save the second fetched ticket and expect an error
