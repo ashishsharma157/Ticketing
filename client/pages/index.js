@@ -1,6 +1,7 @@
 //import buildClient from "../api/build-client";
 import Link from "next/link";
 
+
 const LandingPage = ({currentUser, tickets}) => {
     console.log("Tickets:", tickets);
     //console.log("Current User:", currentUser);
