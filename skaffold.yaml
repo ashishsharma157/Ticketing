@@ -4,6 +4,7 @@ deploy:
   kubectl:
     manifests:
       - ./Infra/k8s/*
+      - ./Infra/k8s-dev/*
 build:
   artifacts:
     - image: ashishsharma157/auth
